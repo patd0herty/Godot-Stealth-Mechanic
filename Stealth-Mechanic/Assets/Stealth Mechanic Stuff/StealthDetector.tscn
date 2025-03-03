@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://4pw0jfy3na05"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pon10"]
+radius = 4.0
+
+[node name="StealthDetector" type="Node3D"]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_pon10")
