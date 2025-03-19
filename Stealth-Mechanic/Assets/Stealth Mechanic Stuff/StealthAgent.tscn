@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://csh7786jugju8"]
+
+[ext_resource type="Script" path="res://Assets/Stealth Mechanic Stuff/Scripts/StealthAgent.cs" id="1_yj1fe"]
+
+[node name="StealthAgent" type="Node3D"]
+script = ExtResource("1_yj1fe")

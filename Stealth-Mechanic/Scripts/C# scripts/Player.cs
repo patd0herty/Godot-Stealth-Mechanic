@@ -25,6 +25,10 @@ public partial class Player : CharacterBody3D
 	[Export(PropertyHint.Range, "0.0,1.0")] float _mouseSensitivity = 0.01f;
 	[Export] private float _tiltLimit = Mathf.DegToRad(75.0f);
 
+	// Stealth Agent Stuff
+	[Export] private StealthAgent _agent;
+	private bool _isAgent;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
@@ -33,8 +37,13 @@ public partial class Player : CharacterBody3D
 		_camera = GetNode<Camera3D>("%Camera3D");
 		_cameraRotation = GetNode<Node3D>("%CameraRotation");
 
-
 		_animator.Play("Idle");
+
+		if(_agent == null)
+		{
+			_isAgent = false;
+		}
+		else {  _isAgent = true;}
 	}
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -68,6 +77,10 @@ public partial class Player : CharacterBody3D
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 inputDir = Input.GetVector("Left", "Right", "Forward", "Backward");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
+		if (_isAgent)
+		{
+			_handleAgent();
+		}
 		if (direction != Vector3.Zero)
 		{
 			if (!IsOnFloor())
@@ -145,4 +158,13 @@ public partial class Player : CharacterBody3D
 			GetTree().Quit();
 		}
     }
+
+	public void _handleAgent()
+	{
+		if (_sprinting)
+		{
+			// Sprinting will always set Visibility to Max
+			_agent.VisibilityLevel = 5;
+		}
+	}
 }
